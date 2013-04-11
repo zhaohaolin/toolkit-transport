@@ -33,7 +33,7 @@ public class DefaultDispatcher implements Receiver {
 				
 				BusinessCourse course = getCourse(msg.getClass());
 				if (course == null) {
-					log.error("No course class found for ["
+					LOG.error("No course class found for ["
 							+ msg.getClass().getName() + "]. Process stopped.");
 					return;
 				}
@@ -48,7 +48,7 @@ public class DefaultDispatcher implements Receiver {
 						statisticer.incHandledTransactionEnd();
 					}
 				} catch (Exception e) {
-					log.error("biz error.", e);
+					LOG.error("biz error.", e);
 				}
 			}
 		};
@@ -92,11 +92,11 @@ public class DefaultDispatcher implements Receiver {
 			try {
 				bizMethod.invoke(course, msg);
 			} catch (Exception e) {
-				log.error("Invoke biz method [" + bizMethod.getName()
+				LOG.error("Invoke biz method [" + bizMethod.getName()
 						+ "] failed. " + e);
 			}
 		} else {
-			log.error("No biz method found for message ["
+			LOG.error("No biz method found for message ["
 					+ msg.getClass().getName() + "]. No process execute.");
 		}
 	}
@@ -105,7 +105,7 @@ public class DefaultDispatcher implements Receiver {
 		return courseTable.get(clazz);
 	}
 	
-	private Logger					log			= LoggerFactory
+	private final static Logger		LOG			= LoggerFactory
 														.getLogger(DefaultDispatcher.class);
 	private TransactionStatisticer	statisticer	= new TransactionStatisticer();
 	private static final Method		EMPTY_METHOD;
@@ -184,7 +184,7 @@ public class DefaultDispatcher implements Receiver {
 							if (null != biz) {
 								Class<?>[] params = method.getParameterTypes();
 								if (params.length < 1) {
-									log.warn("Method ["
+									LOG.warn("Method ["
 											+ method.getName()
 											+ "] found but only ["
 											+ params.length
