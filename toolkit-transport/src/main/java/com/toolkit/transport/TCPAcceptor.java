@@ -247,6 +247,7 @@ public class TCPAcceptor {
 				throws Exception {
 			super.channelIdle(ctx, e);
 			
+			// 超过5次没有发送数据，默认为客户端掉线
 			if (e.getState() == IdleState.WRITER_IDLE)
 				i++;
 			
