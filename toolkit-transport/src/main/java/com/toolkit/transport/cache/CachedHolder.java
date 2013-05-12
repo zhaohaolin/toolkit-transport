@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CachedHolder implements Holder {
 	
-	private final static Logger	log	= LoggerFactory
+	private final static Logger	LOG	= LoggerFactory
 											.getLogger(CachedHolder.class);
 	private Cache				cache;
 	
@@ -45,47 +45,60 @@ public class CachedHolder implements Holder {
 					@Override
 					public void notifyElementEvicted(Ehcache cache,
 							Element element) {
-						log.trace("notifyElementEvicted:"
-								+ element.getObjectValue());
+						if (LOG.isTraceEnabled()) {
+							LOG.trace("notifyElementEvicted:"
+									+ element.getObjectValue());
+						}
 					}
 					
 					@Override
 					public void notifyElementExpired(Ehcache cache,
 							Element element) {
-						log.trace("notifyElementExpired:"
-								+ element.getObjectValue());
+						if (LOG.isTraceEnabled()) {
+							LOG.trace("notifyElementExpired:"
+									+ element.getObjectValue());
+						}
 					}
 					
 					@Override
 					public void notifyElementPut(Ehcache cache, Element element)
 							throws CacheException {
-						log.trace("notifyElementPut:"
-								+ element.getObjectValue());
+						if (LOG.isTraceEnabled()) {
+							LOG.trace("notifyElementPut:"
+									+ element.getObjectValue());
+						}
 					}
 					
 					@Override
 					public void notifyElementRemoved(Ehcache cache,
 							Element element) throws CacheException {
-						log.trace("notifyElementRemoved:"
-								+ element.getObjectValue());
+						if (LOG.isTraceEnabled()) {
+							LOG.trace("notifyElementRemoved:"
+									+ element.getObjectValue());
+						}
 					}
 					
 					@Override
 					public void notifyElementUpdated(Ehcache cache,
 							Element element) throws CacheException {
-						log.trace("notifyElementUpdated:"
-								+ element.getObjectValue());
+						if (LOG.isTraceEnabled()) {
+							LOG.trace("notifyElementUpdated:"
+									+ element.getObjectValue());
+						}
 					}
 					
 					@Override
 					public void notifyRemoveAll(Ehcache cache) {
-						log.trace("notifyRemoveAll.");
+						if (LOG.isTraceEnabled()) {
+							LOG.trace("notifyRemoveAll.");
+						}
 					}
 					
 					@Override
 					public Object clone() throws CloneNotSupportedException {
 						throw new CloneNotSupportedException();
 					}
+					
 				});
 	}
 	
