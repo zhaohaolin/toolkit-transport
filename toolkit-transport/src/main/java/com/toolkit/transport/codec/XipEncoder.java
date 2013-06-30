@@ -25,21 +25,21 @@ public class XipEncoder extends OneToOneEncoder {
 	
 	private final static Logger		LOG				= LoggerFactory
 															.getLogger(XipEncoder.class);
-	private final Kryo				kryo			= new Kryo();
+	private final static Kryo		KRYO			= new Kryo();
 	private MsgCode2TypeMetainfo	typeMetaInfo;
 	private int						dumpBytes		= 256;
 	private boolean					isDebugEnabled	= false;
 	
 	// 注册所有协议类
 	public void init() {
-		kryo.setReferences(true);
+		KRYO.setReferences(true);
 		List<Class<?>> list = typeMetaInfo.getAllXip();
 		for (Class<?> class1 : list) {
-			kryo.register(class1);
+			KRYO.register(class1);
 		}
 		
 		// UUIDs don't have a no-arg constructor.
-		kryo.register(java.util.UUID.class);
+		KRYO.register(java.util.UUID.class);
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class XipEncoder extends OneToOneEncoder {
 			
 			// 再对数据进行编码
 			Output output = new Output(4096, Integer.MAX_VALUE);
-			kryo.writeObject(output, msg);
+			KRYO.writeObject(output, msg);
 			bytes = output.toBytes();
 			output.flush();
 			output = null;

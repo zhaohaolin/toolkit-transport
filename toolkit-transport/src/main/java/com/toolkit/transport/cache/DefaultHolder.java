@@ -17,7 +17,8 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class DefaultHolder implements Holder {
 	
-	private ConcurrentMap<Object, Object>	map	= new ConcurrentHashMap<Object, Object>();
+	// Use this cached map for all app
+	private final static ConcurrentMap<Object, Object>	map	= new ConcurrentHashMap<Object, Object>();
 	
 	@Override
 	public void put(Object key, Object value) {

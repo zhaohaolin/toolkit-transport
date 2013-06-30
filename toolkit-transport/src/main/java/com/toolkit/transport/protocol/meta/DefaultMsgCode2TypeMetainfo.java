@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * TODO
@@ -21,8 +22,8 @@ import java.util.Map.Entry;
  */
 public class DefaultMsgCode2TypeMetainfo implements MsgCode2TypeMetainfo {
 	
-	private Map<Integer, Class<?>>	codes	= new HashMap<Integer, Class<?>>();
-	private Map<Class<?>, Integer>	codes1	= new HashMap<Class<?>, Integer>();
+	private final static Map<Integer, Class<?>>	codes	= new ConcurrentHashMap<Integer, Class<?>>();
+	private final static Map<Class<?>, Integer>	codes1	= new ConcurrentHashMap<Class<?>, Integer>();
 	
 	@Override
 	public List<Class<?>> getAllXip() {
@@ -48,7 +49,7 @@ public class DefaultMsgCode2TypeMetainfo implements MsgCode2TypeMetainfo {
 		codes1.put(type, tag);
 	}
 	
-	public Map<Integer, String> getAllMetainfo() {
+	public static Map<Integer, String> getAllMetainfo() {
 		Map<Integer, String> ret = new HashMap<Integer, String>();
 		for (Entry<Integer, Class<?>> entry : codes.entrySet()) {
 			ret.put(entry.getKey(), entry.getValue().toString());

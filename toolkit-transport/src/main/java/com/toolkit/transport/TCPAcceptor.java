@@ -40,7 +40,7 @@ public class TCPAcceptor {
 	
 	private final static Logger		LOG				= LoggerFactory
 															.getLogger(TCPAcceptor.class);
-	private EndpointFactory			endpointFactory	= new DefaultEndpointFactory();
+	private final EndpointFactory	endpointFactory	= new DefaultEndpointFactory();
 	private String					ip				= "127.0.0.1";
 	private int						port			= 7777;
 	private int						maxRetryCount	= 20;
@@ -99,7 +99,9 @@ public class TCPAcceptor {
 				try {
 					Thread.sleep(retryTimeout);
 				} catch (InterruptedException e1) {
-					//
+					if (LOG.isErrorEnabled()) {
+						LOG.error("[{}]", e1.fillInStackTrace());
+					}
 				}
 			}
 		} while (!binded);

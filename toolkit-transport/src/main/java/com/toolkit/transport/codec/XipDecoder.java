@@ -24,7 +24,7 @@ public class XipDecoder extends FrameDecoder {
 	// private:
 	private final static Logger		LOG					= LoggerFactory
 																.getLogger(XipDecoder.class);
-	private final Kryo				kryo				= new Kryo();
+	private final static Kryo		kryo				= new Kryo();
 	private MsgCode2TypeMetainfo	typeMetaInfo;
 	private int						maxMessageLength	= -1;
 	private int						dumpBytes			= 256;

@@ -47,6 +47,7 @@ public class MetainfoUtils {
 							pkgName, null, null);
 					for (String clsName : clsNames) {
 						try {
+							// get currentThread context classloader
 							ClassLoader cl = Thread.currentThread()
 									.getContextClassLoader();
 							LOG.debug(
